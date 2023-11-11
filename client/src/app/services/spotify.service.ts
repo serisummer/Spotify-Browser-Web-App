@@ -93,21 +93,39 @@ export class SpotifyService {
 
   getAlbum(albumId:string):Promise<AlbumData> {
     //TODO: use the album endpoint to make a request to express.
-    return null as any;
+    return this.sendRequestToExpress('/album/' + encodeURIComponent(albumId)).then((data) => {
+      return new AlbumData(data);
+    });
   }
 
   getTracksForAlbum(albumId:string):Promise<TrackData[]> {
     //TODO: use the tracks for album endpoint to make a request to express.
-    return null as any;
+    return this.sendRequestToExpress('/album-tracks/' + encodeURIComponent(albumId)).then((data) => {
+      return data['items'].map(track => {
+        return new TrackData(track);
+      })
+    });
   }
 
   getTrack(trackId:string):Promise<TrackData> {
     //TODO: use the track endpoint to make a request to express.
-    return null as any;
+    return this.sendRequestToExpress('/track/' + encodeURIComponent(trackId)).then((data) => {
+      return new TrackData(data);
+    });
   }
 
   getAudioFeaturesForTrack(trackId:string):Promise<TrackFeature[]> {
     //TODO: use the audio features for track endpoint to make a request to express.
-    return null as any;
+    return this.sendRequestToExpress('/track-audio-features/' + encodeURIComponent(trackId)).then((data) => {
+      let trackFeatures = [];
+      trackFeatures.push(new TrackFeature('acousticness', data['acousticness'])); 
+      trackFeatures.push(new TrackFeature('danceability', data['danceability']));
+      trackFeatures.push(new TrackFeature('energy', data['energy']));
+      trackFeatures.push(new TrackFeature('instrumentalness', data['instrumentalness']));
+      trackFeatures.push(new TrackFeature('liveness', data['liveness']));
+      trackFeatures.push(new TrackFeature('speechiness', data['speechiness']));
+      trackFeatures.push(new TrackFeature('valence', data['valence']));
+      return trackFeatures;
+    });
   }
 }
