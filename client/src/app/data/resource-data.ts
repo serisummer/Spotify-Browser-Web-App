@@ -4,6 +4,7 @@ export abstract class ResourceData {
 	imageURL:string;
 	id:string;
 	url:string;
+	localURL:string = "unknown";
 
 	constructor(objectModel:{}) {
 		this.name = objectModel['name'];

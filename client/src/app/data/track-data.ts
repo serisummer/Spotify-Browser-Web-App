@@ -20,6 +20,8 @@ export class TrackData extends ResourceData {
 		}
 
 		this.duration_ms = objectModel['duration_ms'];
+		
+		this.localURL = '/' + this.category + '/' + this.id;
 	}
 
 	//Return duration_ms in X:XX form (and drop ms component)

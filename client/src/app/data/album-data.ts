@@ -14,5 +14,6 @@ export class AlbumData extends ResourceData {
 		this.artists = objectModel['artists'].map((artist) => {
 			return new ArtistData(artist);
 		});
+		this.localURL = '/' + this.category + '/' + this.id;
 	}
 }
